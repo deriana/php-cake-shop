@@ -1,44 +1,35 @@
 <?php 
-	/**
-	 * Bootstrap page
-	 * Require file autoload dari vendor
-	 */
-	require_once __DIR__ . '/vendor/autoload.php';
-	use Controllers\Mahasiswa;
+require_once __DIR__ . '/vendor/autoload.php';
+use Controllers\Cakes;
 
-	/**
-	 * Buat objek dari kelas Mahasiswa
-	 */
-	$controller = new Mahasiswa();
-	
+$controller = new Cakes();
 
-	//tentukan bagaimana halaman akan di-load
-	if(!isset($_GET['act']))
-	{
-		//pemanggilan method yang akan di-run
-		$controller->index();
-	}
-	else
-	{
-		switch($_GET['act'])
-		{
-			case 'home' : 
-				$controller->index();
-				break;
-			
-			case 'simpan' :
-				$controller->save();
-				break;
+if (!isset($_GET['act'])) {
+    $controller->index();
+} else {
+    switch ($_GET['act']) {
+        case 'input-kue':
+            $controller->input();
+            break;
 
-			case 'tampil-data' :
-				$controller->show_data();
-				break;
+        case 'simpan-kue':
+            $controller->save();
+            break;
 
-			default : 
-				$controller->index();
-				break;
-		}
-	}
+        case 'tampil-kue':
+            $controller->show_data();
+            break;
 
+        case 'user-manage':
+            $controller->users();
+            break;
+        
+        case 'laporan':
+            $controller->laporan();
+            break;
 
-?>
+        default:
+            $controller->index();
+            break;
+    }
+}
