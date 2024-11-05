@@ -12,6 +12,7 @@
         <table class="table table-responsive table-bordered table-striped">
             <tr>
                 <th>ID</th>
+                <th>Nama Pembeli</th>
                 <th>Kue</th>
                 <th>Jumlah</th>
                 <th>Diskon (Rp)</th>
@@ -22,6 +23,7 @@
             <?php foreach ($sales as $sale): ?>
                 <tr>
                     <td><?= htmlspecialchars($sale['id']); ?></td>
+                    <td><?= htmlspecialchars($sale['pembeli']); ?></td>
                     <td><?= htmlspecialchars($sale['cake_name']); ?></td>
                     <td><?= htmlspecialchars($sale['quantity']); ?></td>
                     <td>Rp <?= number_format($sale['discount'], 3, ',', '.'); ?></td>
