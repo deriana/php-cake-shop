@@ -1,25 +1,41 @@
 <html>
+
 <head>
     <title>Pengguna - Cake Shop</title>
     <link rel="stylesheet" href="/mvc-example/assets/css/bootstrap.css" />
 </head>
+
 <body>
-<div class="container">
-    <h3>Data Pengguna</h3>
-    <table class="table table-responsive table-bordered table-striped">
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Created At</th>
-        </tr>
-        <?php foreach ($users as $user): ?>
+    <div class="container">
+        <h3>Data Pengguna</h3>
+
+        <!-- Tombol untuk menambah pengguna -->
+        <a href="/mvc-example/?act=user-create" class="btn btn-primary mb-3">Tambah Pengguna</a>
+
+        <table class="table table-responsive table-bordered table-striped">
             <tr>
-                <td><?= htmlspecialchars($user['id']); ?></td>
-                <td><?= htmlspecialchars($user['username']); ?></td>
-                <td><?= htmlspecialchars($user['created_at']); ?></td>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Created At</th>
+                <th>Aksi</th> <!-- Tambahkan kolom aksi -->
             </tr>
-        <?php endforeach; ?>
-    </table>
-</div>
+            <?php foreach ($users as $user): ?>
+                <tr>
+                    <td><?= htmlspecialchars($user['id']); ?></td>
+                    <td><?= htmlspecialchars($user['username']); ?></td>
+                    <td><?= htmlspecialchars($user['created_at']); ?></td>
+                    <td>
+                        <!-- Tombol Edit -->
+                        <a href="/mvc-example/?act=edit-user&id=<?= htmlspecialchars($user['id']); ?>" class="btn btn-warning">Edit</a>
+                        <!-- Tombol Hapus -->
+                        <a onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')"
+                            href="/mvc-example/?act=user-delete&id=<?= htmlspecialchars($user['id']); ?>"
+                            class="btn btn-danger">Hapus</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
 </body>
+
 </html>

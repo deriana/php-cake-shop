@@ -41,14 +41,24 @@ class Model_cake
 
     function deleteData($id)
     {
-        $rs = $this->dbh->prepare("DELETE FROM cakes WHERE id=?");
+        $stmt = $this->dbh->prepare("DELETE FROM sales WHERE cake_id = ?");
+        $stmt->execute([$id]);
+    
+        $rs = $this->dbh->prepare("DELETE FROM cakes WHERE id = ?");
         $rs->execute([$id]);
     }
     
+
     function lihat_user() {
         $rs = $this->dbh->prepare("SELECT * FROM users");
         $rs->execute(); 
         return $rs;
+    }
+    
+    public function tambah_user($username, $password) {
+        $hashedPassword = md5($password); // Hash dengan MD5
+        $stmt = $this->dbh->prepare("INSERT INTO users (username, password, created_at) VALUES (?, ?, NOW())");
+        $stmt->execute([$username, $hashedPassword]);
     }
     
 }

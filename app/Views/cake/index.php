@@ -11,6 +11,7 @@
             <div class="col-md-4">&nbsp;</div>
             <div class="col-md-4">
                 <h3>Isikan data Kue di sini</h3>
+                <a href="/mvc-example/?act=sales-manage">Transaksi</a>
                 <form method="post" action="/mvc-example/?act=simpan-kue" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="exampleInputName">Nama Kue</label>

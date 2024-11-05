@@ -7,7 +7,7 @@
 
 <body>
     <div class="row">
-        <div class="col-md-12">
+        <div class="">
             <div class="col-md-4">&nbsp;</div>
             <div class="col-md-4">
                 <h3>Data Kue</h3>
@@ -24,7 +24,7 @@
                         <tr>
                             <td><?= $cake['id']; ?></td>
                             <td><?= $cake['name']; ?></td>
-                            <td><?= $cake['price']; ?>K</td>
+                            <td><?= $cake['price'], 0; ?></td>
                             <td><?= $cake['stock']; ?></td>
                             <td>
                                 <?php if (!empty($cake['imgurl'])): ?>

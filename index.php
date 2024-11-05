@@ -25,6 +25,14 @@ if (!isset($_GET['act'])) {
             $controller->users();
             break;
 
+        case 'user-create':
+            $controller->createUser();
+            break;
+
+        case 'user-delete':
+            $controller->deleteUser();
+            break;
+
         case 'laporan':
             $controller->laporan();
             break;
@@ -36,9 +44,23 @@ if (!isset($_GET['act'])) {
         case 'update-kue':
             $controller->update();
             break;
-            
+
         case 'hapus-kue':
             $controller->delete();
+            break;
+
+        case 'edit-user':
+            $controller->editUser();
+            break;
+            
+        case 'sales-create':
+            $controller->createSale(); // Tampilkan form untuk penjualan baru
+            break;
+        case 'sales-save':
+            $controller->saveSale(); // Simpan data penjualan
+            break;
+        case 'sales-manage':
+            $controller->viewSales(); // Tampilkan daftar penjualan
             break;
 
         default:
