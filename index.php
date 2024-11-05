@@ -1,5 +1,6 @@
-<?php 
+<?php
 require_once __DIR__ . '/vendor/autoload.php';
+
 use Controllers\Cakes;
 
 $controller = new Cakes();
@@ -23,9 +24,17 @@ if (!isset($_GET['act'])) {
         case 'user-manage':
             $controller->users();
             break;
-        
+
         case 'laporan':
             $controller->laporan();
+            break;
+
+        case 'edit-kue':
+            $controller->edit();
+            break;
+
+        case 'update-kue':
+            $controller->update();
             break;
 
         default:

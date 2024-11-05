@@ -11,7 +11,7 @@
             <h3>Detail Kue</h3>
             <p>ID: <?= $rs['id']; ?></p>
             <p>Nama: <?= $rs['name']; ?></p>
-            <p>Harga: <?= $rs['price']; ?></p>
+            <p>Harga: <?= $rs['price']; ?>K</p>
             <p>Stok: <?= $rs['stock']; ?></p>
             <?php 
                 $imgPath = '/mvc-example/' . $rs['imgurl'];

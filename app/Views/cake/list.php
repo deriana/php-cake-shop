@@ -24,16 +24,19 @@
                         <tr>
                             <td><?= $cake['id']; ?></td>
                             <td><?= $cake['name']; ?></td>
-                            <td><?= $cake['price']; ?></td>
+                            <td><?= $cake['price']; ?>K</td>
                             <td><?= $cake['stock']; ?></td>
                             <td>
                                 <?php if (!empty($cake['imgurl'])): ?>
-                                    <img src="/mvc-example/<?= $cake['imgurl']; ?>" alt="Gambar Kue" style="max-width: 100px;"/>
+                                    <img src="/mvc-example/<?= $cake['imgurl']; ?>" alt="Gambar Kue" style="max-width: 100px;" />
                                 <?php else: ?>
                                     Tidak ada gambar
                                 <?php endif; ?>
                             </td>
-                            <td><a href="?act=tampil-kue&i=<?= $cake['id']; ?>">Detail</a></td>
+                            <td>
+                                <a href="?act=edit-kue&i=<?= $cake['id']; ?>">Edit</a> 
+                                <a href="?act=tampil-kue&i=<?= $cake['id']; ?>">Detail</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </table>

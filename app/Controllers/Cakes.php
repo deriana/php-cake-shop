@@ -12,7 +12,8 @@ class Cakes
     {
         $this->cake = new Model_cake();
     }
-    public function index() {
+    public function index()
+    {
         require_once 'app/Views/index.php';
     }
 
@@ -47,10 +48,11 @@ class Cakes
     function save()
     {
         $name = $_POST['name'];
-        $price = $_POST['price'];
+        $price = str_replace(['Rp ', ' '], '', $_POST['price']);
+        $price = (float)$price;
+
         $stock = $_POST['stock'];
 
-        // Menghandle upload file
         $imgurl = $this->uploadImage($_FILES['imgurl']);
 
         if ($imgurl) {
@@ -59,6 +61,7 @@ class Cakes
 
         $this->index();
     }
+
 
     private function uploadImage($file)
     {
@@ -99,4 +102,39 @@ class Cakes
             }
         }
     }
+    public function edit()
+{
+    if (!isset($_GET['i'])) {
+        header("Location: /mvc-example/?act=tampil-kue");
+        exit;
+    }
+
+    $cake = $this->cake->lihatDataDetail($_GET['i']);
+    require_once 'app/Views/cake/edit.php'; 
+}
+
+function update()
+{
+    $id = $_POST['id']; // Mendapatkan ID kue yang akan diupdate
+    $name = $_POST['name']; // Mendapatkan nama kue
+    $price = str_replace(['Rp ', ' '], '', $_POST['price']); // Menghapus format Rp dan spasi dari harga
+    $stock = $_POST['stock']; // Mendapatkan stok
+
+    // Ambil data kue saat ini untuk mendapatkan imgurl yang sudah ada
+    $currentCake = $this->cake->lihatDataDetail($id);
+    $imgurl = $currentCake['imgurl']; // Simpan gambar yang sudah ada
+
+    // Cek apakah ada file gambar baru
+    if (!empty($_FILES['imgurl']['name'])) {
+        // Jika ada gambar baru, upload gambar dan simpan URL-nya
+        $imgurl = $this->uploadImage($_FILES['imgurl']);
+    }
+
+    // Lakukan update data dengan URL gambar yang sesuai
+    $this->cake->updateData($id, $name, $price, $stock, $imgurl);
+
+    // Redirect atau tampilkan kembali daftar kue
+    header("Location: /mvc-example/?act=tampil-kue");
+}
+
 }
