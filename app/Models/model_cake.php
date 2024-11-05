@@ -44,9 +44,11 @@ class Model_cake
         $rs = $this->dbh->prepare("DELETE FROM cakes WHERE id=?");
         $rs->execute([$id]);
     }
-
-    function lihat_user(){
+    
+    function lihat_user() {
         $rs = $this->dbh->prepare("SELECT * FROM users");
+        $rs->execute(); 
         return $rs;
     }
+    
 }

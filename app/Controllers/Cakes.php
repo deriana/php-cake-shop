@@ -22,12 +22,11 @@ class Cakes
         require_once 'app/Views/cake/index.php';
     }
 
-    public function users()
-    {
-        // Fetch users from the model
-        $users = $this->cake->lihat_user()->fetchAll(\PDO::FETCH_ASSOC); // Fetch all users as an associative array
-        require_once 'app/Views/user/index.php'; // Load the user view
+    public function users() {
+        $users = $this->cake->lihat_user()->fetchAll(\PDO::FETCH_ASSOC);
+        require_once 'app/Views/user/index.php';
     }
+    
 
     public function laporan()
     {
