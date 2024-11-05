@@ -34,8 +34,10 @@
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <a href="?act=edit-kue&i=<?= $cake['id']; ?>">Edit</a> 
+                                <a href="?act=edit-kue&i=<?= $cake['id']; ?>">Edit</a>
                                 <a href="?act=tampil-kue&i=<?= $cake['id']; ?>">Detail</a>
+                                <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"
+                                    href="?act=hapus-kue&id=<?= $cake['id']; ?>" class="btn btn-danger">Hapus</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

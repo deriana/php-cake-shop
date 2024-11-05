@@ -36,6 +36,10 @@ if (!isset($_GET['act'])) {
         case 'update-kue':
             $controller->update();
             break;
+            
+        case 'hapus-kue':
+            $controller->delete();
+            break;
 
         default:
             $controller->index();
