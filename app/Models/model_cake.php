@@ -68,7 +68,6 @@ class Model_cake
         return 0;
     }
 
-
     function updateData($id, $name, $price, $stock, $imgurl)
     {
         $rs = $this->dbh->prepare("UPDATE cakes SET name=?, price=?, stock=?, imgurl=? WHERE id=?");

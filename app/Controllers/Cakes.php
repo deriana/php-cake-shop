@@ -83,33 +83,36 @@ class Cakes
             if ($report_type === 'sales') {
                 $start_date = $_POST['start_date'];
                 $end_date = $_POST['end_date'];
-                // Redirect ke halaman laporan dengan query string
                 header("Location: /mvc-example/?act=laporan-sales&start_date={$start_date}&end_date={$end_date}");
                 exit;
             } elseif ($report_type === 'cakes') {
                 $cake_id = $_POST['cake_id'];
-                // Redirect ke halaman laporan dengan query string
                 header("Location: /mvc-example/?act=laporan-cakes&cake_id={$cake_id}");
                 exit;
             }
         }
 
-        $cakes = $this->cake->getAllCakes(); // Ambil semua kue untuk dropdown
-        require_once 'app/Views/report/index.php'; // Ganti path jika perlu
+        $cakes = $this->cake->getAllCakes();
+        require_once 'app/Views/report/index.php';
     }
+
 
     public function laporanSales()
     {
-        $start_date = $_GET['start_date'] ?? null;
-        $end_date = $_GET['end_date'] ?? null;
+        // Ambil tanggal dari query string (GET) atau form (POST)
+        $start_date = $_GET['start_date'] ?? $_POST['start_date'] ?? null;
+        $end_date = $_GET['end_date'] ?? $_POST['end_date'] ?? null;
+        $salesData = [];
         $report = null;
 
         if ($start_date && $end_date) {
-            $report['total_sales'] = $this->sales->getTotalSales($start_date, $end_date);
+            // Ambil data sales berdasarkan tanggal
+            $salesData = $this->sales->getSalesByDateRange($start_date, $end_date);
         }
 
-        require_once 'app/Views/report/sales_report.php'; // Ganti path jika perlu
+        require_once 'app/Views/report/sales_report.php';
     }
+
 
     public function laporanCakes()
     {
@@ -120,7 +123,7 @@ class Cakes
             $report['total_value'] = $this->cake->getCakeStockValueById($cake_id);
         }
 
-        require_once 'app/Views/report/cake_report.php'; // Ganti path jika perlu
+        require_once 'app/Views/report/cake_report.php';
     }
 
 

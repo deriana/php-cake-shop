@@ -37,6 +37,14 @@ if (!isset($_GET['act'])) {
             $controller->laporan();
             break;
 
+        case 'laporan-sales':
+            $controller->laporanSales();
+            break;
+        case 'laporan-cakes':
+            $controller->laporanCakes();
+            break;
+
+
         case 'edit-kue':
             $controller->edit();
             break;
@@ -52,7 +60,7 @@ if (!isset($_GET['act'])) {
         case 'edit-user':
             $controller->editUser();
             break;
-            
+
         case 'sales-create':
             $controller->createSale(); // Tampilkan form untuk penjualan baru
             break;

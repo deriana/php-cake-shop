@@ -20,18 +20,18 @@
         <div id="sales_date_range" style="display: none;">
             <div class="form-group">
                 <label for="start_date">Tanggal Mulai</label>
-                <input type="date" name="start_date" class="form-control" required>
+                <input type="date" name="start_date" class="form-control">
             </div>
             <div class="form-group">
                 <label for="end_date">Tanggal Selesai</label>
-                <input type="date" name="end_date" class="form-control" required>
+                <input type="date" name="end_date" class="form-control">
             </div>
         </div>
 
         <div id="cake_selection" style="display: none;">
             <div class="form-group">
                 <label for="cake_id">Pilih Kue</label>
-                <select name="cake_id" id="cake_id" class="form-control" required>
+                <select name="cake_id" id="cake_id" class="form-control">
                     <option value="">Pilih Kue</option>
                     <?php foreach ($cakes as $cake): ?>
                         <option value="<?= $cake['id']; ?>"><?= htmlspecialchars($cake['name']); ?></option>
