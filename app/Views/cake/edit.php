@@ -36,6 +36,15 @@
                         <input type="text" class="form-control" name="name" value="<?= $cake['name']; ?>" required>
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputCategory">Kategori Kue</label>
+                        <select class="form-control" name="category" required>
+                            <option value="Kue Balok" <?= $cake['category'] == 'Kue Balok' ? 'selected' : ''; ?>>Kue Balok</option>
+                            <option value="Kue Bolu" <?= $cake['category'] == 'Kue Bolu' ? 'selected' : ''; ?>>Kue Bolu</option>
+                            <option value="Kue Lapis Talas" <?= $cake['category'] == 'Kue Lapis Talas' ? 'selected' : ''; ?>>Kue Lapis Talas</option>
+                            <option value="Brownies" <?= $cake['category'] == 'Brownies' ? 'selected' : ''; ?>>Brownies</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="exampleInputPrice">Harga</label>
                         <div class="input-group">
                             <span class="input-group-addon">Rp</span>

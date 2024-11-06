@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Controllers\Cakes;
@@ -8,7 +9,24 @@ $controller = new Cakes();
 if (!isset($_GET['act'])) {
     $controller->index();
 } else {
+    if ($_GET['act'] !== 'login' && $_GET['act'] !== 'login-auth') {
+        if (!isset($_SESSION['id'])) {
+            header("Location: /mvc-example/?act=login");
+            exit();
+        }
+    }
+
     switch ($_GET['act']) {
+        case 'login':
+            $controller->loginPage();
+            break;
+        case 'login-auth':
+            $controller->login();
+            break;
+        case 'dashboard':
+            $controller->dashboard();
+            break;
+
         case 'input-kue':
             $controller->input();
             break;
@@ -27,6 +45,18 @@ if (!isset($_GET['act'])) {
 
         case 'user-create':
             $controller->createUser();
+            break;
+
+        case 'user-edit':
+            $controller->editUser(); // Tampilkan form edit pengguna
+            break;
+
+        case 'user-update':
+            $controller->updateUser();
+            break;
+
+        case 'user-save':
+            $controller->saveUser(); // Simpan pengguna baru
             break;
 
         case 'user-delete':
@@ -55,10 +85,6 @@ if (!isset($_GET['act'])) {
 
         case 'hapus-kue':
             $controller->delete();
-            break;
-
-        case 'edit-user':
-            $controller->editUser();
             break;
 
         case 'sales-create':

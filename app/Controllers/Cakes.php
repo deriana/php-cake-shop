@@ -23,8 +23,49 @@ class Cakes
 
     public function index()
     {
+        $this->authGuard();
         require_once 'app/Views/index.php'; // Memuat tampilan utama
     }
+
+    public function dashboard()
+    {
+        require_once 'app/Views/dashboard.php';
+    }
+
+
+    public function loginPage()
+    {
+        require_once 'app/Views/login.php';
+    }
+
+    public function login()
+    {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        $user = $this->user->getUserByUsername($username);
+
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+
+            echo "Sesi diset dengan ID: " . $_SESSION['id'];
+            header("Location: /mvc-example/?act=dashboard");
+            exit();
+        } else {
+            echo "<div class='alert alert-danger'>Username atau password salah!</div>";
+            include 'app/Views/login.php';
+        }
+    }
+
+    public function authGuard()
+    {
+        if (!isset($_SESSION['id'])) {
+            header("Location: /mvc-example/?act=login");
+            exit();
+        }
+    }
+
 
     public function input()
     {
@@ -37,31 +78,32 @@ class Cakes
         require_once 'app/Views/user/index.php'; // Memuat tampilan pengguna
     }
 
+    public function editUser()
+    {
+        $id = $_GET['id'];
+        $user = $this->user->getUserById($id); // Ambil data pengguna berdasarkan ID
+        include 'app/Views/user/edit.php'; // Tampilkan form edit
+    }
+
+    public function updateUser()
+    {
+        // Ambil data dari form
+        $id = $_POST['id'];
+        $username = $_POST['username'];
+        $password = $_POST['password'] ?? null; // Ambil password jika ada
+
+        // Panggil model untuk memperbarui pengguna
+        $this->user->updateUser($id, $username, $password);
+
+        // Redirect setelah update
+        header("Location: /mvc-example/?act=user-manage");
+        exit();
+    }
+
     public function createUser()
     {
         require_once 'app/Views/user/create.php'; // Memuat form untuk menambah pengguna
     }
-
-
-    public function editUser()
-    {
-        if (!isset($_GET['id'])) {
-            header("Location: /mvc-example/?act=user-manage");
-            exit;
-        }
-
-        $userId = $_GET['id'];
-        $user = $this->user->lihat_user()->fetch(PDO::FETCH_ASSOC);
-
-        if (!$user) {
-            header("Location: /mvc-example/?act=user-manage");
-            exit;
-        }
-
-        require_once 'app/Views/user/edit.php';
-    }
-
-
 
     public function deleteUser()
     {
@@ -116,15 +158,22 @@ class Cakes
 
     public function laporanCakes()
     {
-        $cake_id = $_GET['cake_id'] ?? null;
-        $report = null;
+        // Ambil data dari model
+        $report = $this->cake->getCakeSalesReport();
 
-        if ($cake_id) {
-            $report['total_value'] = $this->cake->getCakeStockValueById($cake_id);
+        // Tambahkan kolom total_penjualan ke setiap item
+        foreach ($report as &$row) {
+            $row['total_sales'] = $row['units_sold'] * $row['price'];
         }
+
+        // Urutkan berdasarkan total_penjualan dari terbesar ke terkecil
+        usort($report, function ($a, $b) {
+            return $b['total_sales'] <=> $a['total_sales'];
+        });
 
         require_once 'app/Views/report/cake_report.php';
     }
+
 
 
     public function show_data()
@@ -143,16 +192,30 @@ class Cakes
         $name = $_POST['name'];
         $price = str_replace(['Rp ', ' '], '', $_POST['price']);
         $price = (float)$price;
-
         $stock = $_POST['stock'];
+        $category = $_POST['category']; // Ambil kategori dari input
 
         $imgurl = $this->uploadImage($_FILES['imgurl']);
 
         if ($imgurl) {
-            $this->cake->simpanData($name, $price, $stock, $imgurl);
+            $this->cake->simpanData($name, $price, $stock, $imgurl, $category); // Kirimkan kategori ke model
         }
 
         $this->index(); // Redirect ke tampilan utama
+    }
+
+    public function saveUser()
+    {
+        // Mengambil data dari input
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        // Menyimpan data pengguna ke model
+        $this->user->simpanUser($username, $password);
+
+        // Redirect atau tampilkan pesan sukses
+        header("Location: /mvc-example/?act=user-manage"); // Redirect ke halaman manage pengguna
+        exit();
     }
 
     private function uploadImage($file)
@@ -212,6 +275,7 @@ class Cakes
         $name = $_POST['name']; // Mendapatkan nama kue
         $price = str_replace(['Rp ', ' '], '', $_POST['price']); // Menghapus format Rp dan spasi dari harga
         $stock = $_POST['stock']; // Mendapatkan stok
+        $category = $_POST['category']; // Mengambil kategori dari input
 
         // Ambil data kue saat ini untuk mendapatkan imgurl yang sudah ada
         $currentCake = $this->cake->lihatDataDetail($id);
@@ -223,12 +287,13 @@ class Cakes
             $imgurl = $this->uploadImage($_FILES['imgurl']);
         }
 
-        // Lakukan update data dengan URL gambar yang sesuai
-        $this->cake->updateData($id, $name, $price, $stock, $imgurl);
+        // Lakukan update data dengan URL gambar dan kategori yang sesuai
+        $this->cake->updateData($id, $name, $price, $stock, $imgurl, $category); // Pastikan kategori ditambahkan
 
         // Redirect atau tampilkan kembali daftar kue
         header("Location: /mvc-example/?act=tampil-kue");
     }
+
 
     public function delete()
     {

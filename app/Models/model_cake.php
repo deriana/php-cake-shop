@@ -15,11 +15,12 @@ class Model_cake
         $this->dbh = $db->getInstance();
     }
 
-    function simpanData($name, $price, $stock, $imgurl)
+    function simpanData($name, $price, $stock, $imgurl, $category)
     {
-        $rs = $this->dbh->prepare("INSERT INTO cakes (name, price, stock, imgurl) VALUES (?, ?, ?, ?)");
-        $rs->execute([$name, $price, $stock, $imgurl]);
+        $rs = $this->dbh->prepare("INSERT INTO cakes (name, price, stock, imgurl, category) VALUES (?, ?, ?, ?, ?)");
+        $rs->execute([$name, $price, $stock, $imgurl, $category]);
     }
+
 
     function lihatData()
     {
@@ -68,10 +69,45 @@ class Model_cake
         return 0;
     }
 
-    function updateData($id, $name, $price, $stock, $imgurl)
+    public function getAllCakesSalesReport()
     {
-        $rs = $this->dbh->prepare("UPDATE cakes SET name=?, price=?, stock=?, imgurl=? WHERE id=?");
-        $rs->execute([$name, $price, $stock, $imgurl, $id]);
+        $stmt = $this->dbh->prepare("
+        SELECT 
+            cakes.name AS cake_name,
+            cakes.price,
+            cakes.category,
+            COALESCE(SUM(sales.quantity), 0) AS total_sold
+        FROM 
+            cakes
+        LEFT JOIN 
+            sales ON cakes.id = sales.cake_id
+        GROUP BY 
+            cakes.id
+        ORDER BY 
+            total_sold DESC
+    ");
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getCakeSalesReport()
+    {
+        // Query untuk mendapatkan nama kue, harga, dan total unit terjual
+        $stmt = $this->dbh->prepare("
+        SELECT c.name, c.price, c.category, COALESCE(SUM(s.quantity), 0) as units_sold
+        FROM cakes c
+        LEFT JOIN sales s ON c.id = s.cake_id
+        GROUP BY c.id
+    ");
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
+    function updateData($id, $name, $price, $stock, $imgurl, $category)
+    {
+        $stmt = $this->dbh->prepare("UPDATE cakes SET name = ?, price = ?, stock = ?, imgurl = ?, category = ? WHERE id = ?");
+        $stmt->execute([$name, $price, $stock, $imgurl, $category, $id]);
     }
 
     function deleteData($id)
@@ -89,12 +125,5 @@ class Model_cake
         $rs = $this->dbh->prepare("SELECT * FROM users");
         $rs->execute();
         return $rs;
-    }
-
-    public function tambah_user($username, $password)
-    {
-        $hashedPassword = md5($password); // Hash dengan MD5
-        $stmt = $this->dbh->prepare("INSERT INTO users (username, password, created_at) VALUES (?, ?, NOW())");
-        $stmt->execute([$username, $hashedPassword]);
     }
 }

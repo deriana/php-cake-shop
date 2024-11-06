@@ -1,3 +1,4 @@
+
 <html>
 
 <head>
@@ -16,6 +17,16 @@
                     <div class="form-group">
                         <label for="exampleInputName">Nama Kue</label>
                         <input type="text" class="form-control" name="name" placeholder="Nama Kue" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputCategory">Kategori Kue</label>
+                        <select class="form-control" name="category" required>
+                            <option value="">Pilih Kategori</option>
+                            <option value="Kue Balok">Kue Balok</option>
+                            <option value="Kue Bolu">Kue Bolu</option>
+                            <option value="Kue Lapis Talas">Kue Lapis Talas</option>
+                            <option value="Brownies">Brownies</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPrice">Harga</label>

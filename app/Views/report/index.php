@@ -28,18 +28,6 @@
             </div>
         </div>
 
-        <div id="cake_selection" style="display: none;">
-            <div class="form-group">
-                <label for="cake_id">Pilih Kue</label>
-                <select name="cake_id" id="cake_id" class="form-control">
-                    <option value="">Pilih Kue</option>
-                    <?php foreach ($cakes as $cake): ?>
-                        <option value="<?= $cake['id']; ?>"><?= htmlspecialchars($cake['name']); ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-        </div>
-
         <button type="submit" class="btn btn-primary">Lihat Laporan</button>
     </form>
 </div>
@@ -47,16 +35,10 @@
 <script>
     document.getElementById('report_type').addEventListener('change', function() {
         var salesDateRange = document.getElementById('sales_date_range');
-        var cakeSelection = document.getElementById('cake_selection');
         if (this.value === 'sales') {
             salesDateRange.style.display = 'block';
-            cakeSelection.style.display = 'none';
-        } else if (this.value === 'cakes') {
-            salesDateRange.style.display = 'none';
-            cakeSelection.style.display = 'block';
         } else {
             salesDateRange.style.display = 'none';
-            cakeSelection.style.display = 'none';
         }
     });
 </script>

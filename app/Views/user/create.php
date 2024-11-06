@@ -1,10 +1,8 @@
 <html>
-
 <head>
     <title>Tambah Pengguna - Cake Shop</title>
     <link rel="stylesheet" href="/mvc-example/assets/css/bootstrap.css" />
 </head>
-
 <body>
     <div class="container">
         <h3>Tambah Pengguna</h3>
@@ -22,7 +20,4 @@
         </form>
     </div>
 </body>
-<script>
-    
-</script>
 </html>

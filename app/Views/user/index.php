@@ -26,7 +26,7 @@
                     <td><?= htmlspecialchars($user['created_at']); ?></td>
                     <td>
                         <!-- Tombol Edit -->
-                        <a href="/mvc-example/?act=edit-user&id=<?= htmlspecialchars($user['id']); ?>" class="btn btn-warning">Edit</a>
+                        <a href="/mvc-example/?act=user-edit&id=<?= htmlspecialchars($user['id']); ?>" class="btn btn-warning">Edit</a>
                         <!-- Tombol Hapus -->
                         <a onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')"
                             href="/mvc-example/?act=user-delete&id=<?= htmlspecialchars($user['id']); ?>"
