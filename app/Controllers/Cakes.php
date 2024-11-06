@@ -32,6 +32,15 @@ class Cakes
         require_once 'app/Views/dashboard.php';
     }
 
+    public function logout()
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+
+        header("Location: /cake-shop/?act=login");
+        exit();
+    }
 
     public function loginPage()
     {
@@ -50,7 +59,7 @@ class Cakes
             $_SESSION['username'] = $user['username'];
 
             echo "Sesi diset dengan ID: " . $_SESSION['id'];
-            header("Location: /mvc-example/?act=dashboard");
+            header("Location: /cake-shop/?act=dashboard");
             exit();
         } else {
             echo "<div class='alert alert-danger'>Username atau password salah!</div>";
@@ -61,7 +70,7 @@ class Cakes
     public function authGuard()
     {
         if (!isset($_SESSION['id'])) {
-            header("Location: /mvc-example/?act=login");
+            header("Location: /cake-shop/?act=login");
             exit();
         }
     }
@@ -96,7 +105,7 @@ class Cakes
         $this->user->updateUser($id, $username, $password);
 
         // Redirect setelah update
-        header("Location: /mvc-example/?act=user-manage");
+        header("Location: /cake-shop/?act=user-manage");
         exit();
     }
 
@@ -110,7 +119,7 @@ class Cakes
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $this->user->deleteData($id);
-            header("Location: /mvc-example/?act=user-manage"); // Redirect setelah penghapusan
+            header("Location: /cake-shop/?act=user-manage"); // Redirect setelah penghapusan
 
 
             exit();
@@ -125,11 +134,11 @@ class Cakes
             if ($report_type === 'sales') {
                 $start_date = $_POST['start_date'];
                 $end_date = $_POST['end_date'];
-                header("Location: /mvc-example/?act=laporan-sales&start_date={$start_date}&end_date={$end_date}");
+                header("Location: /cake-shop/?act=laporan-sales&start_date={$start_date}&end_date={$end_date}");
                 exit;
             } elseif ($report_type === 'cakes') {
                 $cake_id = $_POST['cake_id'];
-                header("Location: /mvc-example/?act=laporan-cakes&cake_id={$cake_id}");
+                header("Location: /cake-shop/?act=laporan-cakes&cake_id={$cake_id}");
                 exit;
             }
         }
@@ -214,7 +223,7 @@ class Cakes
         $this->user->simpanUser($username, $password);
 
         // Redirect atau tampilkan pesan sukses
-        header("Location: /mvc-example/?act=user-manage"); // Redirect ke halaman manage pengguna
+        header("Location: /cake-shop/?act=user-manage"); // Redirect ke halaman manage pengguna
         exit();
     }
 
@@ -261,7 +270,7 @@ class Cakes
     public function edit()
     {
         if (!isset($_GET['i'])) {
-            header("Location: /mvc-example/?act=tampil-kue");
+            header("Location: /cake-shop/?act=tampil-kue");
             exit;
         }
 
@@ -291,7 +300,7 @@ class Cakes
         $this->cake->updateData($id, $name, $price, $stock, $imgurl, $category); // Pastikan kategori ditambahkan
 
         // Redirect atau tampilkan kembali daftar kue
-        header("Location: /mvc-example/?act=tampil-kue");
+        header("Location: /cake-shop/?act=tampil-kue");
     }
 
 
@@ -302,7 +311,7 @@ class Cakes
             $this->cake->deleteData($id);
 
             // Redirect atau tampilkan kembali daftar kue setelah penghapusan
-            header("Location: /mvc-example/?act=tampil-kue");
+            header("Location: /cake-shop/?act=tampil-kue");
             exit(); // Pastikan untuk menghentikan script setelah redirect
         }
     }
@@ -358,7 +367,7 @@ class Cakes
                 // Kurangi stok kue
                 $new_stock = $cake['stock'] - $quantity;
                 if ($this->sales->updateStock($cake_id, $new_stock)) { // Update stok kue
-                    header("Location: /mvc-example/?act=sales-manage"); // Redirect setelah penyimpanan
+                    header("Location: /cake-shop/?act=sales-manage"); // Redirect setelah penyimpanan
                 } else {
                     echo "Error updating stock.";
                 }

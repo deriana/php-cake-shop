@@ -2,7 +2,7 @@
 
 <head>
     <title>Pengguna - Cake Shop</title>
-    <link rel="stylesheet" href="/mvc-example/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="/cake-shop/assets/css/bootstrap.css" />
 </head>
 
 <body>
@@ -10,7 +10,7 @@
         <h3>Data Pengguna</h3>
 
         <!-- Tombol untuk menambah pengguna -->
-        <a href="/mvc-example/?act=user-create" class="btn btn-primary mb-3">Tambah Pengguna</a>
+        <a href="/cake-shop/?act=user-create" class="btn btn-primary mb-3">Tambah Pengguna</a>
 
         <table class="table table-responsive table-bordered table-striped">
             <tr>
@@ -26,10 +26,10 @@
                     <td><?= htmlspecialchars($user['created_at']); ?></td>
                     <td>
                         <!-- Tombol Edit -->
-                        <a href="/mvc-example/?act=user-edit&id=<?= htmlspecialchars($user['id']); ?>" class="btn btn-warning">Edit</a>
+                        <a href="/cake-shop/?act=user-edit&id=<?= htmlspecialchars($user['id']); ?>" class="btn btn-warning">Edit</a>
                         <!-- Tombol Hapus -->
                         <a onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')"
-                            href="/mvc-example/?act=user-delete&id=<?= htmlspecialchars($user['id']); ?>"
+                            href="/cake-shop/?act=user-delete&id=<?= htmlspecialchars($user['id']); ?>"
                             class="btn btn-danger">Hapus</a>
                     </td>
                 </tr>

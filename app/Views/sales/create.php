@@ -2,7 +2,7 @@
 
 <head>
     <title>Tambah Penjualan - Cake Shop</title>
-    <link rel="stylesheet" href="/mvc-example/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="/cake-shop/assets/css/bootstrap.css" />
 </head>
 
 <body>
@@ -13,7 +13,7 @@
             <div class="alert alert-danger"><?= htmlspecialchars($error_message); ?></div>
         <?php endif; ?>
 
-        <form action="/mvc-example/?act=sales-save" method="POST">
+        <form action="/cake-shop/?act=sales-save" method="POST">
             <div class="form-group">
                 <label for="cake_id">Pilih Kue</label>
                 <select name="cake_id" class="form-control" required>
@@ -55,7 +55,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="/mvc-example/?act=sales-manage" class="btn btn-secondary">Kembali</a>
+            <a href="/cake-shop/?act=sales-manage" class="btn btn-secondary">Kembali</a>
         </form>
     </div>
 </body>

@@ -2,7 +2,7 @@
 
 <head>
     <title>Cake Shop - Edit Kue</title>
-    <link rel="stylesheet" href="/mvc-example/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="/cake-shop/assets/css/bootstrap.css" />
     <script>
         function formatCurrency(input) {
             // Menghilangkan karakter yang bukan angka
@@ -29,7 +29,7 @@
             <div class="col-md-4">&nbsp;</div>
             <div class="col-md-4">
                 <h3>Edit Data Kue</h3>
-                <form method="post" action="/mvc-example/?act=update-kue" enctype="multipart/form-data">
+                <form method="post" action="/cake-shop/?act=update-kue" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $cake['id']; ?>" />
                     <div class="form-group">
                         <label for="exampleInputName">Nama Kue</label>
@@ -65,7 +65,7 @@
                     <button type="submit" class="btn btn-default">Update</button>
                 </form>
                 <br />
-                <a href="/mvc-example/?act=tampil-kue">Kembali ke Daftar Kue</a>
+                <a href="/cake-shop/?act=tampil-kue">Kembali ke Daftar Kue</a>
             </div>
             <div class="col-md-4">&nbsp;</div>
         </div>

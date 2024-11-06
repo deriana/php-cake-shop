@@ -2,13 +2,13 @@
 
 <head>
     <title>Edit Pengguna</title>
-    <link rel="stylesheet" href="/mvc-example/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="cake-shop/assets/css/bootstrap.css" />
 </head>
 
 <body>
     <div class="container">
         <h3>Edit Pengguna</h3>
-        <form action="/mvc-example/?act=user-update" method="post">
+        <form action="cake-shop/?act=user-update" method="post">
             <input type="hidden" name="id" value="<?= htmlspecialchars($user['id']); ?>" />
             <div class="form-group">
                 <label for="username">Username:</label>

@@ -23,6 +23,11 @@ if (!isset($_GET['act'])) {
         case 'login-auth':
             $controller->login();
             break;
+
+        case 'logout':
+            $controller->logout();
+            break;
+
         case 'dashboard':
             $controller->dashboard();
             break;

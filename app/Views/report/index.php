@@ -1,13 +1,13 @@
 <html>
 <head>
     <title>Laporan Kue dan Penjualan</title>
-    <link rel="stylesheet" href="/mvc-example/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="/cake-shop/assets/css/bootstrap.css" />
 </head>
 <body>
 <div class="container">
     <h3>Laporan Kue dan Penjualan</h3>
 
-    <form action="/mvc-example/?act=laporan" method="POST">
+    <form action="/cake-shop/?act=laporan" method="POST">
         <div class="form-group">
             <label for="report_type">Pilih Jenis Laporan</label>
             <select name="report_type" id="report_type" class="form-control" required>

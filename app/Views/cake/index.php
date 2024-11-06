@@ -3,7 +3,7 @@
 
 <head>
     <title>Cake Shop - Input Kue</title>
-    <link rel="stylesheet" href="/mvc-example/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="/cake-shop/assets/css/bootstrap.css" />
 </head>
 
 <body>
@@ -12,8 +12,8 @@
             <div class="col-md-4">&nbsp;</div>
             <div class="col-md-4">
                 <h3>Isikan data Kue di sini</h3>
-                <a href="/mvc-example/?act=sales-manage">Transaksi</a>
-                <form method="post" action="/mvc-example/?act=simpan-kue" enctype="multipart/form-data">
+                <a href="/cake-shop/?act=sales-manage">Transaksi</a>
+                <form method="post" action="/cake-shop/?act=simpan-kue" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="exampleInputName">Nama Kue</label>
                         <input type="text" class="form-control" name="name" placeholder="Nama Kue" required>
@@ -46,7 +46,7 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <br />
-                <a href="/mvc-example/?act=tampil-kue">Lihat Hasil Input Kue</a>
+                <a href="/cake-shop/?act=tampil-kue">Lihat Hasil Input Kue</a>
             </div>
             <div class="col-md-4">&nbsp;</div>
         </div>

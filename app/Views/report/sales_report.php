@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Laporan Penjualan</title>
-    <link rel="stylesheet" href="/mvc-example/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="/cake-shop/assets/css/bootstrap.css" />
 </head>
 <body>
 <div class="container">
@@ -36,7 +36,7 @@
         <p>Tidak ada data penjualan yang ditemukan untuk periode ini.</p>
     <?php endif; ?>
 
-    <a href="/mvc-example/?act=laporan" class="btn btn-secondary">Kembali ke Laporan</a>
+    <a href="/cake-shop/?act=laporan" class="btn btn-secondary">Kembali ke Laporan</a>
 </div>
 </body>
 </html>

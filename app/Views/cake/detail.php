@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Cake Shop - Detail Kue</title>
-    <link rel="stylesheet" href="/mvc-example/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="/cake-shop/assets/css/bootstrap.css" />
 </head>
 <body>
 <div class="row">
@@ -14,7 +14,7 @@
             <p>Harga: <?= $rs['price'], 0; ?></p>
             <p>Stok: <?= $rs['stock']; ?></p>
             <?php 
-                $imgPath = '/mvc-example/' . $rs['imgurl'];
+                $imgPath = '/cake-shop/' . $rs['imgurl'];
             ?>
             <img src="<?= $imgPath; ?>" alt="Gambar Kue" style="max-width: 100%;"/>
         </div>
