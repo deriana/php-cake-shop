@@ -1,25 +1,38 @@
-<html>
-<head>
-    <title>Cake Shop - Detail Kue</title>
-    <link rel="stylesheet" href="/cake-shop/assets/css/bootstrap.css" />
-</head>
-<body>
-<div class="row">
-    <div class="col-md-12">
-        <div class="col-md-4">&nbsp;</div>
-        <div class="col-md-4">
-            <h3>Detail Kue</h3>
-            <p>ID: <?= $rs['id']; ?></p>
-            <p>Nama: <?= $rs['name']; ?></p>
-            <p>Harga: <?= $rs['price'], 0; ?></p>
-            <p>Stok: <?= $rs['stock']; ?></p>
-            <?php 
-                $imgPath = '/cake-shop/' . $rs['imgurl'];
-            ?>
-            <img src="<?= $imgPath; ?>" alt="Gambar Kue" style="max-width: 100%;"/>
+<?php 
+include __DIR__ . '../../../../public/views/partials/header.php' ?>
+
+<div class="main-content">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h4>Detail Kue</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Bagian Gambar -->
+                        <div class="text-center mb-4">
+                            <?php 
+                                $imgPath = '/cake-shop/' . $rs['imgurl'];
+                            ?>
+                            <img src="<?= $imgPath; ?>" alt="Gambar Kue" class="img-fluid rounded" style="max-width: 80%; height: auto; border: 1px solid #ddd; padding: 8px;" />
+                        </div>
+    
+                        <!-- Bagian Informasi Kue -->
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>ID:</strong> <?= $rs['id']; ?></li>
+                            <li class="list-group-item"><strong>Nama:</strong> <?= $rs['name']; ?></li>
+                            <li class="list-group-item"><strong>Harga:</strong> Rp <?= number_format($rs['price'], 3, ',', '.'); ?></li>
+                            <li class="list-group-item"><strong>Stok:</strong> <?= $rs['stock']; ?></li>
+                        </ul>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="/cake-shop/?act=tampil-kue" class="btn btn-secondary">Kembali ke Daftar Kue</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">&nbsp;</div>
     </div>
 </div>
-</body>
-</html>
+
+<?php include __DIR__ . '../../../../public/views/partials/footer.php' ?>

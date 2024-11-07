@@ -40,16 +40,13 @@ class Model_user
         $stmt->execute([$username, $hashedPassword]);
     }
 
-    public function updateUser($id, $username, $password = null)
+    public function userUpdate($id, $username, $password = null)
     {
-        // Siapkan query untuk memperbarui pengguna
         if ($password) {
-            // Jika password disediakan, hash dan masukkan dalam query
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $rs = $this->dbh->prepare("UPDATE users SET username = ?, password = ? WHERE id = ?");
             $rs->execute([$username, $hashedPassword, $id]);
         } else {
-            // Jika tidak ada password, hanya perbarui username
             $rs = $this->dbh->prepare("UPDATE users SET username = ? WHERE id = ?");
             $rs->execute([$username, $id]);
         }

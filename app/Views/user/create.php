@@ -1,10 +1,9 @@
-<html>
-<head>
-    <title>Tambah Pengguna - Cake Shop</title>
-    <link rel="stylesheet" href="/cake-shop/assets/css/bootstrap.css" />
-</head>
-<body>
-    <div class="container">
+<?php 
+include __DIR__ . '../../../../public/views/partials/header.php' ?>
+
+
+<div class="main-content">
+    <div class="container mt-5">
         <h3>Tambah Pengguna</h3>
         <form action="/cake-shop/?act=user-save" method="POST">
             <div class="form-group">
@@ -19,5 +18,6 @@
             <a href="/cake-shop/?act=user-manage" class="btn btn-secondary">Kembali</a>
         </form>
     </div>
-</body>
-</html>
+</div>
+
+<?php include __DIR__ . '../../../../public/views/partials/footer.php' ?>

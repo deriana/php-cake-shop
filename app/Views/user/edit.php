@@ -1,14 +1,10 @@
-<html>
+<?php
+include __DIR__ . '../../../../public/views/partials/header.php' ?>
 
-<head>
-    <title>Edit Pengguna</title>
-    <link rel="stylesheet" href="cake-shop/assets/css/bootstrap.css" />
-</head>
-
-<body>
-    <div class="container">
+<div class="main-content">
+    <div class="container mt-5">
         <h3>Edit Pengguna</h3>
-        <form action="cake-shop/?act=user-update" method="post">
+        <form action="/cake-shop/?act=update-user" method="post">
             <input type="hidden" name="id" value="<?= htmlspecialchars($user['id']); ?>" />
             <div class="form-group">
                 <label for="username">Username:</label>
@@ -20,8 +16,8 @@
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
-
     </div>
-</body>
+</div>
 
-</html>
+<?php 
+include __DIR__ . '../../../../public/views/partials/footer.php' ?>

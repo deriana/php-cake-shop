@@ -3,11 +3,17 @@ session_start();
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Controllers\Cakes;
+use Controllers\Dashboard;
+use Controllers\Users;
+use Controllers\Sales;
 
 $controller = new Cakes();
+$user = new Users();
+$sale = new Sales();
+$dash = new Dashboard();
 
 if (!isset($_GET['act'])) {
-    $controller->index();
+    $dash->index();
 } else {
     if ($_GET['act'] !== 'login' && $_GET['act'] !== 'login-auth') {
         if (!isset($_SESSION['id'])) {
@@ -18,20 +24,20 @@ if (!isset($_GET['act'])) {
 
     switch ($_GET['act']) {
         case 'login':
-            $controller->loginPage();
+            $user->loginPage();
             break;
         case 'login-auth':
-            $controller->login();
+            $user->login();
             break;
 
         case 'logout':
-            $controller->logout();
+            $user->logout();
             break;
 
         case 'dashboard':
-            $controller->dashboard();
+            $dash->dashboardPage();
             break;
-
+            
         case 'input-kue':
             $controller->input();
             break;
@@ -45,38 +51,38 @@ if (!isset($_GET['act'])) {
             break;
 
         case 'user-manage':
-            $controller->users();
+            $user->users();
             break;
 
         case 'user-create':
-            $controller->createUser();
+            $user->createUser();
             break;
 
         case 'user-edit':
-            $controller->editUser(); // Tampilkan form edit pengguna
+            $user->editUser();
             break;
 
-        case 'user-update':
-            $controller->updateUser();
+        case 'update-user':
+            $user->updateUser();
             break;
 
         case 'user-save':
-            $controller->saveUser(); // Simpan pengguna baru
+            $user->saveUser();
             break;
 
         case 'user-delete':
-            $controller->deleteUser();
+            $user->deleteUser();
             break;
 
         case 'laporan':
-            $controller->laporan();
+            $sale->laporan();
             break;
 
         case 'laporan-sales':
-            $controller->laporanSales();
+            $sale->laporanSales();
             break;
         case 'laporan-cakes':
-            $controller->laporanCakes();
+            $sale->laporanCakes();
             break;
 
 
@@ -93,17 +99,17 @@ if (!isset($_GET['act'])) {
             break;
 
         case 'sales-create':
-            $controller->createSale(); // Tampilkan form untuk penjualan baru
+            $sale->createSale();
             break;
         case 'sales-save':
-            $controller->saveSale(); // Simpan data penjualan
+            $sale->saveSale();
             break;
         case 'sales-manage':
-            $controller->viewSales(); // Tampilkan daftar penjualan
+            $sale->viewSales();
             break;
 
         default:
-            $controller->index();
+            $dash->index();
             break;
     }
 }

@@ -25,10 +25,10 @@ class Model_cake
     function lihatData()
     {
         $rs = $this->dbh->query("SELECT * FROM cakes");
-        return $rs;
+        return $rs->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    function lihatDataDetail($id)
+    function LihatDataDetail($id)
     {
         $rs = $this->dbh->prepare("SELECT * FROM cakes WHERE id=?");
         $rs->execute([$id]);
@@ -125,5 +125,27 @@ class Model_cake
         $rs = $this->dbh->prepare("SELECT * FROM users");
         $rs->execute();
         return $rs;
+    }
+
+    public function lihatDataRandom($limit = 6)
+    {
+        $sql = "SELECT * FROM cakes ORDER BY RAND() LIMIT :limit";
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->bindValue(":limit", $limit, PDO::PARAM_INT); // Membatasi jumlah data
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function jumlahKue()
+    {
+        try {
+            $stmt = $this->dbh->prepare("SELECT SUM(stock) AS jumlah_kue FROM cakes");
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        } catch (\PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return 0;
+        }
     }
 }

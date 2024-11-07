@@ -15,59 +15,50 @@ class Model_sales
 
     public function simpanData($cake_id, $quantity, $discount, $total_price, $payment_method, $pembeli)
     {
-        // Validasi input (sama seperti sebelumnya)
         if ($quantity <= 0) {
-            return false; // Jumlah tidak boleh negatif atau nol
+            return false;
         }
         if ($discount < 0) {
-            $discount = 0; // Diskon tidak boleh negatif
+            $discount = 0;
         }
 
         try {
-            // Ambil harga satuan kue dan stok berdasarkan cake_id
             $stmt = $this->dbh->prepare("SELECT price, stock FROM cakes WHERE id = ?");
             $stmt->execute([$cake_id]);
             $cake = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             if ($cake) {
-                // Cek apakah stok cukup
                 if ($cake['stock'] < $quantity) {
-                    return false; // Stok tidak mencukupi
+                    return false;
                 }
 
                 $price_per_unit = $cake['price'];
                 $total_price = ($quantity * $price_per_unit) - $discount;
 
-                // Pastikan total_price tidak negatif
                 if ($total_price < 0) {
                     $total_price = 0;
                 }
 
-                // Mendapatkan tanggal saat ini untuk created_at
-                $created_at = date('Y-m-d'); // Format untuk DATE
+                $created_at = date('Y-m-d');
 
-                // Simpan data penjualan dengan pembeli dan waktu saat ini
                 $stmt = $this->dbh->prepare("INSERT INTO sales (cake_id, quantity, discount, total_price, payment_method, pembeli, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 if ($stmt->execute([$cake_id, $quantity, $discount, $total_price, $payment_method, $pembeli, $created_at])) {
-                    // Kurangi stok kue
                     $new_stock = $cake['stock'] - $quantity;
-                    $this->updateStock($cake_id, $new_stock); // Update stok kue
-                    return true; // Transaksi berhasil
+                    $this->updateStock($cake_id, $new_stock);
+                    return true;
                 }
             }
         } catch (\PDOException $e) {
-            // Log error or handle it appropriately
             error_log("Database error: " . $e->getMessage());
-            return false; // Mengembalikan false jika terjadi kesalahan
+            return false;
         }
 
-        return false; // Jika kue tidak ditemukan
+        return false;
     }
 
 
     public function getTotalSales($start_date, $end_date)
     {
-        // Pastikan format tanggal adalah YYYY-MM-DD
         $stmt = $this->dbh->prepare("SELECT SUM(total_price) AS total_sales FROM sales WHERE created_at BETWEEN ? AND ?");
         $stmt->execute([$start_date, $end_date]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -103,7 +94,7 @@ class Model_sales
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             error_log("Database error: " . $e->getMessage());
-            return []; // Mengembalikan array kosong jika terjadi kesalahan
+            return [];
         }
     }
 
@@ -117,6 +108,71 @@ class Model_sales
             WHERE DATE(s.created_at) BETWEEN ? AND ?
         ");
             $stmt->execute([$start_date, $end_date]);
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function totalKeuntungan()
+    {
+        try {
+            $stmt = $this->dbh->prepare("SELECT SUM(s.total_price) AS total_keuntungan FROM sales s");
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        } catch (\PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return 0;
+        }
+    }
+
+    public function kuePalingSering()
+    {
+        try {
+            $stmt = $this->dbh->prepare("
+            SELECT c.name, COUNT(s.cake_id) AS total_penjualan 
+            FROM sales s 
+            JOIN cakes c ON s.cake_id = c.id 
+            GROUP BY c.id 
+            ORDER BY total_penjualan DESC 
+            LIMIT 5
+        ");
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function penjualanPerTanggal()
+    {
+        try {
+            $stmt = $this->dbh->prepare("
+            SELECT DATE(s.created_at) AS tanggal, SUM(s.total_price) AS total 
+            FROM sales s 
+            GROUP BY tanggal 
+            ORDER BY tanggal ASC
+        ");
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function penjualanPerBulan()
+    {
+        try {
+            $stmt = $this->dbh->prepare("
+            SELECT MONTH(s.created_at) AS bulan, YEAR(s.created_at) AS tahun, SUM(s.total_price) AS total 
+            FROM sales s 
+            GROUP BY tahun, bulan 
+            ORDER BY tahun, bulan ASC
+        ");
+            $stmt->execute();
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             error_log("Database error: " . $e->getMessage());

@@ -1,75 +1,81 @@
-<html>
+<?php 
+include __DIR__ . '../../../../public/views/partials/header.php' ?>
 
-<head>
-    <title>Cake Shop - Edit Kue</title>
-    <link rel="stylesheet" href="/cake-shop/assets/css/bootstrap.css" />
-    <script>
-        function formatCurrency(input) {
-            // Menghilangkan karakter yang bukan angka
-            let value = input.value.replace(/[^0-9]/g, '');
-            if (value) {
-                // Menampilkan nilai dengan format mata uang
-                input.value = 'Rp ' + parseInt(value).toLocaleString('id-ID');
-            } else {
-                input.value = '';
-            }
-        }
+<div class="main-content">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h3 class="text-center mb-4">Edit Data Kue</h3>
 
-        function prepareInputPrice(input) {
-            // Menghapus awalan 'Rp ' dan format angka menjadi integer
-            let value = input.value.replace(/[^0-9]/g, '');
-            input.value = value; // Memastikan hanya angka yang tersimpan saat input fokus
-        }
-    </script>
-</head>
-
-<body>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-4">&nbsp;</div>
-            <div class="col-md-4">
-                <h3>Edit Data Kue</h3>
+                <!-- Form Edit Data Kue -->
                 <form method="post" action="/cake-shop/?act=update-kue" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $cake['id']; ?>" />
+
                     <div class="form-group">
-                        <label for="exampleInputName">Nama Kue</label>
-                        <input type="text" class="form-control" name="name" value="<?= $cake['name']; ?>" required>
+                        <label for="name">Nama Kue</label>
+                        <input type="text" id="name" class="form-control" name="name" value="<?= $cake['name']; ?>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="exampleInputCategory">Kategori Kue</label>
-                        <select class="form-control" name="category" required>
+                        <label for="category">Kategori Kue</label>
+                        <select id="category" class="form-control" name="category" required>
                             <option value="Kue Balok" <?= $cake['category'] == 'Kue Balok' ? 'selected' : ''; ?>>Kue Balok</option>
                             <option value="Kue Bolu" <?= $cake['category'] == 'Kue Bolu' ? 'selected' : ''; ?>>Kue Bolu</option>
                             <option value="Kue Lapis Talas" <?= $cake['category'] == 'Kue Lapis Talas' ? 'selected' : ''; ?>>Kue Lapis Talas</option>
                             <option value="Brownies" <?= $cake['category'] == 'Brownies' ? 'selected' : ''; ?>>Brownies</option>
                         </select>
                     </div>
+
                     <div class="form-group">
-                        <label for="exampleInputPrice">Harga</label>
+                        <label for="price">Harga</label>
                         <div class="input-group">
-                            <span class="input-group-addon">Rp</span>
-                            <input type="text" class="form-control" name="price"
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rp</span>
+                            </div>
+                            <input type="text" id="price" class="form-control" name="price"
                                 value="<?= 'Rp ' . number_format($cake['price'], 0, ',', '.'); ?>"
                                 onfocus="prepareInputPrice(this)"
                                 onkeyup="formatCurrency(this)" required>
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label for="exampleInputStock">Stok</label>
-                        <input type="number" class="form-control" name="stock" value="<?= $cake['stock']; ?>" required>
+                        <label for="stock">Stok</label>
+                        <input type="number" id="stock" class="form-control" name="stock" value="<?= $cake['stock']; ?>" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="exampleInputImgUrl">Upload Gambar Kue (Kosongkan jika tidak ingin mengubah)</label>
-                        <input type="file" class="form-control" name="imgurl">
+                        <label for="imgurl">Upload Gambar Kue (Kosongkan jika tidak ingin mengubah)</label>
+                        <input type="file" id="imgurl" class="form-control-file" name="imgurl">
                     </div>
-                    <button type="submit" class="btn btn-default">Update</button>
+
+                    <button type="submit" class="btn btn-primary btn-block mt-4">Update</button>
                 </form>
-                <br />
-                <a href="/cake-shop/?act=tampil-kue">Kembali ke Daftar Kue</a>
+
+                <div class="mt-4 text-center">
+                    <a href="/cake-shop/?act=tampil-kue" class="btn btn-secondary">Kembali ke Daftar Kue</a>
+                </div>
             </div>
-            <div class="col-md-4">&nbsp;</div>
         </div>
     </div>
-</body>
+</div>
 
-</html>
+<script>
+    // Fungsi untuk memformat input harga menjadi format Rupiah
+    function formatCurrency(input) {
+        let value = input.value.replace(/[^0-9]/g, ''); // Hanya angka
+        if (value) {
+            input.value = 'Rp ' + parseInt(value).toLocaleString('id-ID'); // Format ke Rupiah
+        } else {
+            input.value = '';
+        }
+    }
+
+    // Fungsi untuk mempersiapkan input harga saat mendapatkan fokus
+    function prepareInputPrice(input) {
+        let value = input.value.replace(/[^0-9]/g, ''); // Hapus "Rp" dan format angka menjadi integer
+        input.value = value; // Hanya angka yang tersimpan saat input fokus
+    }
+</script>
+
+<?php include __DIR__ . '../../../../public/views/partials/footer.php' ?>
