@@ -5,8 +5,6 @@ namespace Controllers;
 use Models\Model_cake;
 use Models\Model_sales;
 
-use PDO;
-
 class Dashboard
 {
     private $dashCake;

@@ -37,7 +37,7 @@ if (!isset($_GET['act'])) {
         case 'dashboard':
             $dash->dashboardPage();
             break;
-            
+
         case 'input-kue':
             $controller->input();
             break;
@@ -85,7 +85,6 @@ if (!isset($_GET['act'])) {
             $sale->laporanCakes();
             break;
 
-
         case 'edit-kue':
             $controller->edit();
             break;
@@ -106,6 +105,22 @@ if (!isset($_GET['act'])) {
             break;
         case 'sales-manage':
             $sale->viewSales();
+            break;
+        
+        case 'show-category':
+            $controller->showCategory();
+            break;
+
+        case 'save-category':
+            $controller->saveCategory();
+            break;
+
+        case 'delete-category':
+            $controller->hapusCategory();
+            break;
+
+        case 'update-category':
+            $controller->updateCategory();
             break;
 
         default:

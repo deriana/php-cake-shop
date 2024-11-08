@@ -4,30 +4,30 @@ namespace Controllers;
 
 use Models\Model_cake;
 
-use PDO;
-
 class Cakes
 {
     private $cake;
 
     public function __construct()
     {
-        $this->cake = new Model_cake(); // Inisialisasi model kue
+        $this->cake = new Model_cake();
     }
 
     public function input()
     {
-        require_once 'app/Views/cake/index.php'; // Memuat tampilan untuk input kue
+        $categories = $this->cake->getAllCategories();
+        require_once 'app/Views/cake/index.php';
     }
 
     public function show_data()
     {
+        $categories = $this->cake->getAllCategories();
         if (!isset($_GET['i'])) {
-            $rs = $this->cake->lihatData();
-            require_once('app/Views/cake/list.php'); // Memuat daftar kue
+            $cakes = $this->cake->lihatData();
+            require_once('app/Views/cake/list.php');
         } else {
-            $rs = $this->cake->lihatDataDetail($_GET['i']);
-            require_once('app/Views/cake/detail.php'); // Memuat detail kue
+            $cakes = $this->cake->lihatDataDetail($_GET['i']);
+            require_once('app/Views/cake/detail.php');
         }
     }
 
@@ -37,18 +37,16 @@ class Cakes
         $price = str_replace(['Rp ', ' '], '', $_POST['price']);
         $price = (float)$price;
         $stock = $_POST['stock'];
-        $category = $_POST['category']; // Ambil kategori dari input
+        $category_id = $_POST['category_id'];
 
         $imgurl = $this->uploadImage($_FILES['imgurl']);
 
         if ($imgurl) {
-            $this->cake->simpanData($name, $price, $stock, $imgurl, $category); // Kirimkan kategori ke model
+            $this->cake->simpanData($name, $price, $stock, $imgurl, $category_id); // Kirimkan category_id ke model
         }
 
         $this->show_data();
     }
-
-   
 
     private function uploadImage($file)
     {
@@ -98,6 +96,7 @@ class Cakes
         }
 
         $cake = $this->cake->lihatDataDetail($_GET['i']);
+        $categories = $this->cake->getAllCategories(); // Dapatkan semua kategori untuk dropdown di form edit
         require_once 'app/Views/cake/edit.php';
     }
 
@@ -107,7 +106,7 @@ class Cakes
         $name = $_POST['name']; // Mendapatkan nama kue
         $price = str_replace(['Rp ', ' '], '', $_POST['price']); // Menghapus format Rp dan spasi dari harga
         $stock = $_POST['stock']; // Mendapatkan stok
-        $category = $_POST['category']; // Mengambil kategori dari input
+        $category_id = $_POST['category_id']; // Mengambil category_id dari input
 
         // Ambil data kue saat ini untuk mendapatkan imgurl yang sudah ada
         $currentCake = $this->cake->lihatDataDetail($id);
@@ -119,8 +118,8 @@ class Cakes
             $imgurl = $this->uploadImage($_FILES['imgurl']);
         }
 
-        // Lakukan update data dengan URL gambar dan kategori yang sesuai
-        $this->cake->updateData($id, $name, $price, $stock, $imgurl, $category); // Pastikan kategori ditambahkan
+        // Lakukan update data dengan URL gambar dan category_id yang sesuai
+        $this->cake->updateData($id, $name, $price, $stock, $imgurl, $category_id); // Pastikan category_id ditambahkan
 
         // Redirect atau tampilkan kembali daftar kue
         header("Location: /cake-shop/?act=tampil-kue");
@@ -132,15 +131,55 @@ class Cakes
             $id = $_GET['id'];
             $this->cake->deleteData($id);
 
-            // Redirect atau tampilkan kembali daftar kue setelah penghapusan
             header("Location: /cake-shop/?act=tampil-kue");
-            exit(); // Pastikan untuk menghentikan script setelah redirect
+            exit();
         }
     }
 
     public function getCakes()
     {
-        $cakeModel = new Model_cake();
-        return $cakeModel->lihatData();
+        return $this->cake->lihatData();
     }
+
+    public function showCategory()
+    {
+        $categories = $this->cake->getAllCategories();
+        require_once 'app/Views/cake/category.php';
+    }
+
+    public function saveCategory()
+    {
+        if (isset($_POST['name']) && !empty($_POST['name'])) {
+            $name = trim($_POST['name']);
+    
+            $this->cake->simpanCategory($name);
+    
+            header("Location: /cake-shop/?act=show-category");
+            exit;
+        } else {
+            echo "Nama kategori tidak boleh kosong!";
+        }
+    }
+
+    public function hapusCategory()
+    {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $this->cake->hapusCategory($id);
+
+            header("Location: /cake-shop/?act=show-category");
+            exit();
+        }
+    }
+    
+    public function updateCategory()
+{
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+
+    $this->cake->updateCategory($id, $name);
+
+    header("Location: /cake-shop/?act=show-category");
+}
+
 }

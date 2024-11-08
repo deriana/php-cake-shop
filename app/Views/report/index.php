@@ -15,7 +15,6 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
                 </select>
             </div>
     
-            <!-- Form untuk rentang tanggal penjualan -->
             <div id="sales_date_range" style="display: none;">
                 <div class="form-group">
                     <label for="start_date">Tanggal Mulai</label>
@@ -33,7 +32,6 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
 </div>
 
 <script>
-    // Menampilkan rentang tanggal hanya jika memilih laporan penjualan
     document.getElementById('report_type').addEventListener('change', function() {
         var salesDateRange = document.getElementById('sales_date_range');
         if (this.value === 'sales') {

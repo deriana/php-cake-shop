@@ -1,5 +1,4 @@
-<?php
-include __DIR__ . '../../../../public/views/partials/header.php' ?>
+<?php include __DIR__ . '../../../../public/views/partials/header.php'; ?>
 
 <div class="main-content">
     <div class="container mt-5">
@@ -14,13 +13,14 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
                     </div>
 
                     <div class="form-group">
-                        <label for="category">Kategori Kue</label>
-                        <select id="category" class="form-control" name="category" required>
+                        <label for="category_id">Kategori Kue</label>
+                        <select id="category_id" class="form-control" name="category_id" required>
                             <option value="" disabled selected>Pilih Kategori</option>
-                            <option value="Kue Balok">Kue Balok</option>
-                            <option value="Kue Bolu">Kue Bolu</option>
-                            <option value="Kue Lapis Talas">Kue Lapis Talas</option>
-                            <option value="Brownies">Brownies</option>
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= htmlspecialchars($category['id']); ?>">
+                                    <?= htmlspecialchars($category['name']); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -67,4 +67,4 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
     }
 </script>
 
-<?php include __DIR__ . '../../../../public/views/partials/footer.php' ?>
+<?php include __DIR__ . '../../../../public/views/partials/footer.php'; ?>

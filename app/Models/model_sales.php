@@ -70,19 +70,17 @@ class Model_sales
     {
         $stmt = $this->dbh->prepare("SELECT price, stock FROM cakes WHERE id = ?");
         $stmt->execute([$cake_id]);
-        return $stmt; // Mengembalikan statement untuk fetch
+        return $stmt;
     }
 
     public function updateStock($cake_id, $new_stock)
     {
         try {
-            // Update stok kue
             $stmt = $this->dbh->prepare("UPDATE cakes SET stock = ? WHERE id = ?");
             return $stmt->execute([$new_stock, $cake_id]);
         } catch (\PDOException $e) {
-            // Log error or handle it appropriately
             error_log("Database error: " . $e->getMessage());
-            return false; // Mengembalikan false jika terjadi kesalahan
+            return false;
         }
     }
 
@@ -178,5 +176,12 @@ class Model_sales
             error_log("Database error: " . $e->getMessage());
             return [];
         }
+    }
+
+    public function getAllCategories()
+    {
+        $stmt = $this->dbh->prepare("SELECT * FROM category");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

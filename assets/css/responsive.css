@@ -1,0 +1,69 @@
+/* Styling untuk Sidebar */
+.main-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    color: white;
+    transition: left 0.3s ease; /* Animasi untuk sidebar */
+}
+
+.sidebar-brand a {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    text-decoration: none;
+}
+
+.sidebar-menu {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-menu .nav-item a {
+    color: white;
+    padding: 15px;
+    display: block;
+    text-decoration: none;
+}
+
+/* Responsif - Sidebar tersembunyi pada perangkat kecil (tablet & handphone) */
+@media (max-width: 768px) {
+    .main-sidebar {
+        left: -250px; /* Sidebar tersembunyi di luar layar */
+    }
+
+    .main-sidebar.open {
+        left: 0; /* Sidebar muncul saat toggle */
+    }
+
+    .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        color: white;
+        font-size: 30px;
+        border: none;
+        cursor: pointer;
+        z-index: 1000;
+    }
+    
+    /* Menyembunyikan sidebar saat tidak digunakan */
+    .sidebar-menu {
+        display: block;
+    }
+}
+
+/* Agar tombol hamburger hanya muncul pada perangkat kecil */
+.menu-toggle {
+    display: none; /* Default hidden */
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Tombol hamburger muncul pada perangkat kecil */
+    }
+}

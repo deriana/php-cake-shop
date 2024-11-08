@@ -1,5 +1,6 @@
 <?php 
-include __DIR__ . '../../../../public/views/partials/header.php' ?>
+include __DIR__ . '../../../../public/views/partials/header.php';
+?>
 
 <div class="main-content">
     <div class="container mt-5">
@@ -9,20 +10,22 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
 
                 <!-- Form Edit Data Kue -->
                 <form method="post" action="/cake-shop/?act=update-kue" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?= $cake['id']; ?>" />
+                    <input type="hidden" name="id" value="<?= htmlspecialchars($cake['id']); ?>" />
 
                     <div class="form-group">
                         <label for="name">Nama Kue</label>
-                        <input type="text" id="name" class="form-control" name="name" value="<?= $cake['name']; ?>" required>
+                        <input type="text" id="name" class="form-control" name="name" value="<?= htmlspecialchars($cake['name']); ?>" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="category">Kategori Kue</label>
-                        <select id="category" class="form-control" name="category" required>
-                            <option value="Kue Balok" <?= $cake['category'] == 'Kue Balok' ? 'selected' : ''; ?>>Kue Balok</option>
-                            <option value="Kue Bolu" <?= $cake['category'] == 'Kue Bolu' ? 'selected' : ''; ?>>Kue Bolu</option>
-                            <option value="Kue Lapis Talas" <?= $cake['category'] == 'Kue Lapis Talas' ? 'selected' : ''; ?>>Kue Lapis Talas</option>
-                            <option value="Brownies" <?= $cake['category'] == 'Brownies' ? 'selected' : ''; ?>>Brownies</option>
+                        <label for="category_id">Kategori Kue</label>
+                        <select id="category_id" class="form-control" name="category_id" required>
+                            <option value="" disabled>Pilih Kategori</option>
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= htmlspecialchars($category['id']); ?>" <?= $cake['category_id'] == $category['id'] ? 'selected' : ''; ?>>
+                                    <?= htmlspecialchars($category['name']); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -33,7 +36,7 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
                                 <span class="input-group-text">Rp</span>
                             </div>
                             <input type="text" id="price" class="form-control" name="price"
-                                value="<?= 'Rp ' . number_format($cake['price'], 0, ',', '.'); ?>"
+                                value="<?= 'Rp ' . number_format($cake['price'], 3, ',', '.'); ?>"
                                 onfocus="prepareInputPrice(this)"
                                 onkeyup="formatCurrency(this)" required>
                         </div>
@@ -41,7 +44,7 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
 
                     <div class="form-group">
                         <label for="stock">Stok</label>
-                        <input type="number" id="stock" class="form-control" name="stock" value="<?= $cake['stock']; ?>" required>
+                        <input type="number" id="stock" class="form-control" name="stock" value="<?= htmlspecialchars($cake['stock']); ?>" required>
                     </div>
 
                     <div class="form-group">
@@ -78,4 +81,4 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
     }
 </script>
 
-<?php include __DIR__ . '../../../../public/views/partials/footer.php' ?>
+<?php include __DIR__ . '../../../../public/views/partials/footer.php'; ?>

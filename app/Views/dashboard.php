@@ -1,6 +1,35 @@
 <?php include __DIR__ . '../../../public/views/partials/header.php' ?>
 
 <style>
+    .d-flex {
+        display: flex;
+        justify-content: space-around;  
+        width: 100%; 
+        flex-wrap: wrap;
+    }
+
+    .section {
+        flex: 1; 
+        min-width: 300px; 
+        margin: 15px; 
+    }
+
+    #chart_div, #chart_bulan {
+        width: 100%;
+        height: 400px;
+        margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .d-flex {
+            flex-direction: column;
+            justify-content: flex-start; 
+        }
+
+        .section {
+            margin-bottom: 20px; 
+        }
+    }
     .info-box-container {
         display: flex;
         justify-content: space-between;
@@ -56,12 +85,10 @@
     }
 
     /* Grafik Styling */
-    canvas {
-        display: block;
-        margin: 0 auto;
+    #chart_div, #chart_bulan {
         width: 100%;
-        max-width: 800px;
         height: 400px;
+        margin-top: 20px;
     }
 
     /* Responsive */
@@ -112,82 +139,112 @@
     <div class="d-flex">
         <section class="section">
             <h3>Grafik Penjualan per Tanggal</h3>
-            <canvas id="chartTanggal"></canvas>
+            <div id="chart_div"></div>
         </section>
 
         <section class="section">
             <h3>Grafik Penjualan per Bulan</h3>
-            <canvas id="chartBulan"></canvas>
+            <div id="chart_bulan"></div>
         </section>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    // Grafik Penjualan per Tanggal
-    var ctxTanggal = document.getElementById('chartTanggal').getContext('2d');
-    var chartTanggal = new Chart(ctxTanggal, {
-        type: 'line',
-        data: {
-            labels: <?php echo json_encode(array_column($penjualanTanggal, 'tanggal')); ?>,
-            datasets: [{
-                label: 'Total Penjualan',
-                data: <?php echo json_encode(array_column($penjualanTanggal, 'total')); ?>,
-                borderColor: 'rgb(75, 192, 192)',
-                fill: false
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Tanggal'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Total Penjualan (Rp)'
-                    }
-                }
-            }
-        }
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {
+        packages: ['corechart', 'bar']
     });
 
-    // Grafik Penjualan per Bulan
-    var ctxBulan = document.getElementById('chartBulan').getContext('2d');
-    var chartBulan = new Chart(ctxBulan, {
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode(array_map(function ($item) {
-                        return $item['tahun'] . '-' . $item['bulan'];
-                    }, $penjualanBulan)); ?>,
-            datasets: [{
-                label: 'Total Penjualan per Bulan',
-                data: <?php echo json_encode(array_column($penjualanBulan, 'total')); ?>,
-                backgroundColor: 'rgb(54, 162, 235)',
-                borderColor: 'rgb(54, 162, 235)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Bulan-Tahun'
-                    }
+    google.charts.setOnLoadCallback(drawCharts);
+
+    function drawCharts() {
+        var dataTanggal = google.visualization.arrayToDataTable([
+            ['Tanggal', 'Total Penjualan'],
+            <?php foreach ($penjualanTanggal as $item): ?>
+                ['<?= $item['tanggal'] ?>', <?= $item['total'] ?>],
+            <?php endforeach; ?>
+        ]);
+
+        var optionsTanggal = {
+            title: 'Grafik Penjualan per Tanggal',
+            titleTextStyle: {
+                fontSize: 18,
+                color: '#2c3e50',
+                bold: true
+            },
+            hAxis: {
+                title: 'Tanggal',
+                titleTextStyle: {
+                    color: '#3498db'
                 },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Total Penjualan (Rp)'
-                    }
+                textStyle: {
+                    fontSize: 12
                 }
-            }
-        }
-    });
+            },
+            vAxis: {
+                title: 'Total Penjualan (Rp)',
+                titleTextStyle: {
+                    color: '#3498db'
+                },
+                textStyle: {
+                    fontSize: 12
+                },
+                gridlines: { color: '#ecf0f1' },
+                baselineColor: '#ecf0f1'
+            },
+            backgroundColor: 'transparent',
+            legend: { position: 'none' },
+            curveType: 'function',
+            colors: ['#3498db'],
+            lineWidth: 3
+        };
+
+        var chartTanggal = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chartTanggal.draw(dataTanggal, optionsTanggal);
+
+        var dataBulan = google.visualization.arrayToDataTable([
+            ['Bulan-Tahun', 'Total Penjualan'],
+            <?php foreach ($penjualanBulan as $item): ?>
+                ['<?= $item['tahun'] . '-' . $item['bulan'] ?>', <?= $item['total'] ?>],
+            <?php endforeach; ?>
+        ]);
+
+        var optionsBulan = {
+            title: 'Grafik Penjualan per Bulan',
+            titleTextStyle: {
+                fontSize: 18,
+                color: '#2c3e50',
+                bold: true
+            },
+            hAxis: {
+                title: 'Bulan-Tahun',
+                titleTextStyle: {
+                    color: '#3498db'
+                },
+                textStyle: {
+                    fontSize: 12
+                }
+            },
+            vAxis: {
+                title: 'Total Penjualan (Rp)',
+                titleTextStyle: {
+                    color: '#3498db'
+                },
+                textStyle: {
+                    fontSize: 12
+                },
+                gridlines: { color: '#ecf0f1' },
+                baselineColor: '#ecf0f1'
+            },
+            backgroundColor: 'transparent',
+            legend: { position: 'none' },
+            colors: ['#2ecc71'],
+            bar: { groupWidth: '75%' }
+        };
+
+        var chartBulan = new google.visualization.ColumnChart(document.getElementById('chart_bulan'));
+        chartBulan.draw(dataBulan, optionsBulan);
+    }
 </script>
 
 <?php include __DIR__ . '../../../public/views/partials/footer.php' ?>

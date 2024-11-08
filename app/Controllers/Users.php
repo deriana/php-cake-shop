@@ -4,8 +4,6 @@ namespace Controllers;
 
 use Models\Model_user;
 
-use PDO;
-
 class Users
 {
     private $user;

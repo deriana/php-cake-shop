@@ -5,8 +5,6 @@ namespace Controllers;
 use Models\Model_cake;
 use Models\Model_sales;
 
-use PDO;
-
 class Sales
 {
     private $sales;
@@ -58,15 +56,13 @@ class Sales
 
     public function laporanCakes()
     {
-        // Ambil data dari model
         $report = $this->cake->getCakeSalesReport();
+        $categories = $this->cake->getAllCategories();
 
-        // Tambahkan kolom total_penjualan ke setiap item
         foreach ($report as &$row) {
             $row['total_sales'] = $row['units_sold'] * $row['price'];
         }
 
-        // Urutkan berdasarkan total_penjualan dari terbesar ke terkecil
         usort($report, function ($a, $b) {
             return $b['total_sales'] <=> $a['total_sales'];
         });

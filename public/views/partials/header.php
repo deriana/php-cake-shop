@@ -17,12 +17,19 @@
 
 </head>
 
+<style>
+    .fa-bars {
+        color: black;
+    }
+</style>
+
 <body>
     <div id="app">
         <div class="main-wrapper">
             <nav class="navbar navbar-expand-lg main-navbar">
                 <form class="form-inline mr-auto">
                     <ul class="navbar-nav mr-3">
+                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
                     </ul>
                 </form>
                 <ul class="navbar-nav navbar-right">
@@ -42,7 +49,10 @@
             <div class="main-sidebar">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html">Amanda Cake</a>
+                        <a href="/cake-shop/">Amanda Cake</a>
+                    </div>
+                    <div class="sidebar-brand sidebar-brand-sm">
+                        <a href="/cake-shop/">AC</a>
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">Home</li>
@@ -79,6 +89,5 @@
                             <a href="/cake-shop/?act=user-manage" class="nav-link"><i class="fas fa-users-cog"></i> <span>Management Users</span></a>
                         </li>
                     </ul>
-
                 </aside>
             </div>

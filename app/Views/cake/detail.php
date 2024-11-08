@@ -1,5 +1,6 @@
 <?php 
-include __DIR__ . '../../../../public/views/partials/header.php' ?>
+include __DIR__ . '../../../../public/views/partials/header.php'; 
+?>
 
 <div class="main-content">
     <div class="container mt-5">
@@ -13,17 +14,18 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
                         <!-- Bagian Gambar -->
                         <div class="text-center mb-4">
                             <?php 
-                                $imgPath = '/cake-shop/' . $rs['imgurl'];
+                                $imgPath = '/cake-shop/' . $cakes['imgurl'];
                             ?>
                             <img src="<?= $imgPath; ?>" alt="Gambar Kue" class="img-fluid rounded" style="max-width: 80%; height: auto; border: 1px solid #ddd; padding: 8px;" />
                         </div>
     
                         <!-- Bagian Informasi Kue -->
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>ID:</strong> <?= $rs['id']; ?></li>
-                            <li class="list-group-item"><strong>Nama:</strong> <?= $rs['name']; ?></li>
-                            <li class="list-group-item"><strong>Harga:</strong> Rp <?= number_format($rs['price'], 3, ',', '.'); ?></li>
-                            <li class="list-group-item"><strong>Stok:</strong> <?= $rs['stock']; ?></li>
+                            <li class="list-group-item"><strong>ID:</strong> <?= $cakes['id']; ?></li>
+                            <li class="list-group-item"><strong>Nama:</strong> <?= htmlspecialchars($cakes['name']); ?></li>
+                            <li class="list-group-item"><strong>Harga:</strong> Rp <?= number_format($cakes['price'], 3, ',', '.'); ?></li>
+                            <li class="list-group-item"><strong>Stok:</strong> <?= $cakes['stock']; ?></li>
+                            <li class="list-group-item"><strong>Kategori:</strong> <?= htmlspecialchars($cakes['name']); ?></li>
                         </ul>
                     </div>
                     <div class="card-footer text-center">
@@ -35,4 +37,4 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
     </div>
 </div>
 
-<?php include __DIR__ . '../../../../public/views/partials/footer.php' ?>
+<?php include __DIR__ . '../../../../public/views/partials/footer.php'; ?>
