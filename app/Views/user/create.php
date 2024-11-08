@@ -1,9 +1,10 @@
 <?php 
 include __DIR__ . '../../../../public/views/partials/header.php' ?>
 
-
+<!-- Konten Utama -->
 <div class="main-content">
     <div class="container mt-5">
+        <!-- Form edit user -->
         <h3>Tambah Pengguna</h3>
         <form action="/cake-shop/?act=user-save" method="POST">
             <div class="form-group">

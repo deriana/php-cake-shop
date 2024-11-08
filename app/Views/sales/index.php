@@ -1,11 +1,13 @@
 <?php 
 include __DIR__ . '../../../../public/views/partials/header.php' ?>
 
+<!-- Konten Utama -->
 <div class="main-content">
     <div class="container mt-5">
         <h3 class="mb-4">Daftar Penjualan</h3>
         <a href="/cake-shop/?act=sales-create" class="btn btn-primary mb-3">Tambah Penjualan Kue</a>
 
+        <!-- Tabel Users -->
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
                 <thead class="thead-dark">

@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . '../../../../public/views/partials/header.php';
 ?>
-
+<!-- Konten Utama -->
 <div class="main-content">
     <h1>Kategori Kue</h1>
     <div class="container mt-5">
@@ -51,6 +51,7 @@ include __DIR__ . '../../../../public/views/partials/header.php';
     </div>
 </div>
 
+<!-- Form Edit Kategori -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -80,7 +81,7 @@ include __DIR__ . '../../../../public/views/partials/header.php';
 <?php
 include __DIR__ . '../../../../public/views/partials/footer.php';
 ?>
-
+<!-- JavaScript Modal -->
 <script>
     $('#editModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); 

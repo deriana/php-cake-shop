@@ -1,8 +1,10 @@
 <?php
 include __DIR__ . '../../../../public/views/partials/header.php' ?>
 
+<!-- Konten Utama -->
 <div class="main-content">
     <div class="container mt-5">
+        <!-- Form Edit User -->
         <h3>Edit Pengguna</h3>
         <form action="/cake-shop/?act=update-user" method="post">
             <input type="hidden" name="id" value="<?= htmlspecialchars($user['id']); ?>" />

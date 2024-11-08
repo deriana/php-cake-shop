@@ -1,7 +1,7 @@
 <?php 
 include __DIR__ . '../../../../public/views/partials/header.php';
 ?>
-
+<!-- Konten Utama -->
 <div class="main-content">
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -36,12 +36,12 @@ include __DIR__ . '../../../../public/views/partials/header.php';
                                 <span class="input-group-text">Rp</span>
                             </div>
                             <input type="text" id="price" class="form-control" name="price"
-                                value="<?= 'Rp ' . number_format($cake['price'], 3, ',', '.'); ?>"
+                                value="<?= 'Rp ' . number_format($cake['price'], 0, ',', '.'); ?>"
                                 onfocus="prepareInputPrice(this)"
                                 onkeyup="formatCurrency(this)" required>
                         </div>
                     </div>
-
+                    
                     <div class="form-group">
                         <label for="stock">Stok</label>
                         <input type="number" id="stock" class="form-control" name="stock" value="<?= htmlspecialchars($cake['stock']); ?>" required>

@@ -1,10 +1,11 @@
 <?php 
 include __DIR__ . '../../../../public/views/partials/header.php' ?>
 
+<!-- Konten Utama -->
 <div class="main-content">
     <div class="container mt-5">
         <h3>Laporan Kue dan Penjualan</h3>
-        
+        <!-- Input pilih laporan -->
         <form action="/cake-shop/?act=laporan" method="POST">
             <div class="form-group">
                 <label for="report_type">Pilih Jenis Laporan</label>

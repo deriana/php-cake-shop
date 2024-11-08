@@ -102,7 +102,7 @@
         }
     }
 </style>
-
+<!-- Konten Utama -->
 <div class="main-content">
     <h1>Dashboard User</h1>
     <div class="info-box-container">
@@ -115,7 +115,7 @@
             <p>Rp <?= number_format($totalKeuntungan, 3) ?></p>
         </div>
     </div>
-
+    <!-- List -->
     <section class="section">
         <h3>Kue Paling Sering Dibeli</h3>
         <table class="table">
@@ -135,7 +135,7 @@
             </tbody>
         </table>
     </section>
-
+<!-- Chart -->
     <div class="d-flex">
         <section class="section">
             <h3>Grafik Penjualan per Tanggal</h3>

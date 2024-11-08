@@ -106,7 +106,6 @@
                 <div class="col-md-6">
                     <div class="map-container">
                         <!-- Menambahkan Google Maps Embed -->
-                        <!-- HTML untuk menyematkan peta -->
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.702037174799!2d106.8066268!3d-6.5877788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c5d32191cd27%3A0x9dbe298ad7de0e00!2sJl.+Lodaya+II%2C+Babakan%2C+Kecamatan+Bogor+Tengah%2C+Kota+Bogor%2C+Jawa+Barat+16128!5e0!3m2!1sen!2sid!4v1698926210048!5m2!1sen!2sid"
                             width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>

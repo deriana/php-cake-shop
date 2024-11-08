@@ -1,10 +1,10 @@
 <?php 
 include __DIR__ . '../../../../public/views/partials/header.php' ?>
-
+<!-- Konten Utama -->
 <div class="main-content">
     <div class="container mt-5">
         <h3>Laporan Penjualan</h3>
-
+        <!-- Tabel Sales -->
         <?php if ($salesData && count($salesData) > 0): ?>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">

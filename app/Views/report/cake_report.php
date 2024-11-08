@@ -1,6 +1,7 @@
 <?php
 include __DIR__ . '../../../../public/views/partials/header.php' ?>
 
+<!-- Konten Utama -->
 <div class="main-content">
     <div class="container mt-5">
         <h3>Laporan Kue dan Penjualan</h3>
