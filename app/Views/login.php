@@ -46,22 +46,22 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="/cake-shop/assets/img/background.png">
+                <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="/cake-shop/assets/img/background.jpg">
                     <div class="absolute-bottom-left index-2">
                         <div class="text-light p-5 pb-2">
                             <div class="mb-5 pb-3">
-                                <h1 class="mb-2 display-4 font-weight-bold text-secondary">Good Morning</h1>
-                                <h5 class="font-weight-normal text-muted-transparent text-secondary">Shirakami Fubuki, Indonesia</h5>
+                                <h1 class="mb-2 display-4 font-weight-bold text-white">Good Morning</h1>
+                                <h5 class="font-weight-normal text-muted-transparent text-white">Amanda Cake, Indonesia</h5>
                             </div>
                         </div>
                     </div>
                 </div>
                 <style>
-                    .background-walk-y {
-                        background-size: cover;
-                        background-position: center center;
-                        background-repeat: no-repeat;
-                    }
+                        .background-walk-y {
+                            background-size: cover;
+                            background-position: center center;
+                            background-repeat: no-repeat;
+                        }
                 </style>
             </div>
         </section>

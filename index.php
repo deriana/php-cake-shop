@@ -1,23 +1,29 @@
 <?php
-session_start();
-require_once __DIR__ . '/vendor/autoload.php';
 
 use Controllers\Cakes;
 use Controllers\Dashboard;
-use Controllers\Users;
 use Controllers\Sales;
+use Controllers\Users;
 
-$controller = new Cakes();
+session_start();
+require_once __DIR__ . '/core/Autoloader.php';
+require_once __DIR__ . '/app/Controllers/Cakes.php';
+require_once __DIR__ . '/app/Controllers/Users.php';
+require_once __DIR__ . '/app/Controllers/Dashboard.php';
+require_once __DIR__ . '/app/Controllers/Sales.php';
+Autoloader::register();
+
+$cakes = new Cakes();
 $user = new Users();
-$sale = new Sales();
 $dash = new Dashboard();
+$sale = new Sales();
 
 if (!isset($_GET['act'])) {
     $dash->index();
 } else {
     if ($_GET['act'] !== 'login' && $_GET['act'] !== 'login-auth') {
         if (!isset($_SESSION['id'])) {
-            header("Location: /mvc-example/?act=login");
+            header("Location: /cake-shop/?act=login");
             exit();
         }
     }
@@ -29,74 +35,57 @@ if (!isset($_GET['act'])) {
         case 'login-auth':
             $user->login();
             break;
-
         case 'logout':
             $user->logout();
             break;
-
         case 'dashboard':
             $dash->dashboardPage();
             break;
-
         case 'input-kue':
-            $controller->input();
+            $cakes->input();
             break;
-
         case 'simpan-kue':
-            $controller->save();
+            $cakes->save();
             break;
-
         case 'tampil-kue':
-            $controller->show_data();
+            $cakes->show_data();
             break;
-
         case 'user-manage':
             $user->users();
             break;
-
         case 'user-create':
             $user->createUser();
             break;
-
         case 'user-edit':
             $user->editUser();
             break;
-
         case 'update-user':
             $user->updateUser();
             break;
-
         case 'user-save':
             $user->saveUser();
             break;
-
         case 'user-delete':
             $user->deleteUser();
             break;
-
         case 'laporan':
             $sale->laporan();
             break;
-
         case 'laporan-sales':
             $sale->laporanSales();
             break;
         case 'laporan-cakes':
             $sale->laporanCakes();
             break;
-
         case 'edit-kue':
-            $controller->edit();
+            $cakes->edit();
             break;
-
         case 'update-kue':
-            $controller->update();
+            $cakes->update();
             break;
-
         case 'hapus-kue':
-            $controller->delete();
+            $cakes->delete();
             break;
-
         case 'sales-create':
             $sale->createSale();
             break;
@@ -106,23 +95,26 @@ if (!isset($_GET['act'])) {
         case 'sales-manage':
             $sale->viewSales();
             break;
-        
+        case 'pdf-sales':
+            $sale->handleExportPdf();
+            break;
         case 'show-category':
-            $controller->showCategory();
+            $cakes->showCategory();
             break;
-
         case 'save-category':
-            $controller->saveCategory();
+            $cakes->saveCategory();
             break;
-
         case 'delete-category':
-            $controller->hapusCategory();
+            $cakes->hapusCategory();
             break;
-
         case 'update-category':
-            $controller->updateCategory();
+            $cakes->updateCategory();
             break;
 
+        case 'hapus-sale':
+            $sale->deleteSales();
+            break;
+            
         default:
             $dash->index();
             break;

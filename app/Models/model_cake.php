@@ -1,9 +1,10 @@
 <?php
 
 namespace Models;
-
 use Libraries\Database;
+
 use PDO;
+require_once __DIR__ . '/../Libraries/Database.php';
 
 class Model_cake
 {

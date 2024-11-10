@@ -1,4 +1,4 @@
-<?php 
+<?php
 include __DIR__ . '../../../../public/views/partials/header.php' ?>
 
 <!-- Konten Utama -->
@@ -20,6 +20,7 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
                         <th>Total Harga (Rp)</th>
                         <th>Metode Pembayaran</th>
                         <th>Waktu</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +46,10 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
                                 ?>
                             </td>
                             <td><?= htmlspecialchars($sale['created_at']); ?></td>
+                            <td>
+                                <a onclick="return confirm('Apakah anda yakin ingin menghapus Kue ini?')"
+                                    href="?act=hapus-sale&id=<?= $sale['id']; ?>" class="btn btn-danger btn-sm">Hapus</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

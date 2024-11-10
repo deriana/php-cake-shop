@@ -1,6 +1,9 @@
 <?php
 
 namespace Controllers;
+require_once __DIR__ . '/../Models/model_cake.php';
+require_once __DIR__ . '/../Models/model_sales.php';
+
 
 use Models\Model_cake;
 use Models\Model_sales;

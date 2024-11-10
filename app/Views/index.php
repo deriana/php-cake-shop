@@ -2,6 +2,32 @@
 
 
 <style>
+    .carousel-caption {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .carousel-caption h5 {
+        font-size: 2rem;
+        color: #f8d7da;
+    }
+
+    .carousel-caption p {
+        font-size: 1.2rem;
+        color: #fff;
+    }
+
+    @media (max-width: 768px) {
+        .carousel-caption h5 {
+            font-size: 1.5rem;
+        }
+
+        .carousel-caption p {
+            font-size: 1rem;
+        }
+    }
+
     .card-img-top {
         width: 100%;
         height: 200px;
@@ -73,13 +99,25 @@
             <div id="cakeMenuCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="\cake-shop\assets\img\cakeImg\bacgkround.png" class="d-block w-100" alt="Menu 1">
+                        <img src="\cake-shop\assets\img\cake1.jpeg" class="d-block w-100" alt="Menu 1">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Chocolate Cake</h5>
+                            <p>Delicious chocolate cake with rich frosting.</p>
+                        </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="\cake-shop\assets\img\cakeImg\bacgkround.png" class="d-block w-100" alt="Menu 1">
+                        <img src="\cake-shop\assets\img\cake2.jpeg" class="d-block w-100" alt="Menu 2">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Vanilla Dream</h5>
+                            <p>Smooth vanilla cake with a creamy finish.</p>
+                        </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="\cake-shop\assets\img\cakeImg\bacgkround.png" class="d-block w-100" alt="Menu 1">
+                        <img src="\cake-shop\assets\img\cake3.jpeg" class="d-block w-100" alt="Menu 3">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Fruit Fiesta</h5>
+                            <p>Fresh fruit toppings on a light and fluffy cake.</p>
+                        </div>
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#cakeMenuCarousel" role="button" data-slide="prev">

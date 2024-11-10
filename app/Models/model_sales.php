@@ -111,6 +111,24 @@ class Model_sales
         }
     }
 
+    public function deleteSales($sale_id)
+    {
+        try {
+            // Menyiapkan query untuk menghapus data penjualan berdasarkan ID penjualan
+            $stmt = $this->dbh->prepare("DELETE FROM sales WHERE id = :sale_id");
+            $stmt->bindParam(':sale_id', $sale_id, \PDO::PARAM_INT);
+            $stmt->execute();
+    
+            // Mengembalikan hasil sukses atau tidaknya operasi
+            return $stmt->rowCount() > 0; // Mengembalikan true jika ada baris yang dihapus
+        } catch (\PDOException $e) {
+            // Menangani error database
+            error_log("Database error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+
     // Mengambil data penjualan berdasarkan rentang tanggal tertentu
     public function getSalesByDateRange($start_date, $end_date)
     {
@@ -215,4 +233,14 @@ class Model_sales
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getDateSales($start_date, $end_date)
+    {
+        $stmt = $this->dbh->prepare("SELECT * FROM sales WHERE created_at BETWEEN :start_date AND :end_date");
+        $stmt->bindParam(':start_date', $start_date);
+        $stmt->bindParam(':end_date', $end_date);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 }

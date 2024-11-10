@@ -26,8 +26,9 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
                 <table class="table table-striped table-bordered" id="cakeTable">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Nama Kue</th>
-                            <th style="display: none;">Id Kategori</th> <!-- Kolom ID Kategori yang disembunyikan -->
+                            <th style="display: none;">Id Kategori</th>
                             <th>Kategori</th>
                             <th>Unit Terjual</th>
                             <th>Harga</th>
@@ -35,10 +36,13 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($report as $row): ?>
+                        <?php
+                        $no = 1;
+                        foreach ($report as $row): ?>
                             <tr>
+                                <td><?= $no++ ?></td>
                                 <td><?= htmlspecialchars($row['name']); ?></td>
-                                <td style="display: none;"><?= htmlspecialchars($row['category_id']); ?></td> <!-- Tampilkan ID Kategori yang disembunyikan -->
+                                <td style="display: none;"><?= htmlspecialchars($row['category_id']); ?></td>
                                 <td><?= htmlspecialchars($row['category_name']); ?></td>
                                 <td><?= htmlspecialchars($row['units_sold']); ?></td>
                                 <td>Rp <?= number_format($row['price'], 3, ',', '.'); ?></td>
@@ -57,7 +61,6 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
 </div>
 
 <script>
-    // Fungsi untuk filter berdasarkan kategori ID dan nama kue
     function filterTable() {
         const select = document.getElementById('categorySelect');
         const filterCategoryId = select.value; // Ambil nilai kategori ID yang dipilih
@@ -69,13 +72,12 @@ include __DIR__ . '../../../../public/views/partials/header.php' ?>
         // Loop melalui semua baris tabel dan sembunyikan baris yang tidak sesuai
         for (let i = 1; i < rows.length; i++) { // Mulai dari 1 untuk mengabaikan header
             const cells = rows[i].getElementsByTagName('td');
-            const categoryId = cells[1].innerText; // Ambil category_id dari kolom kedua yang disembunyikan
-            const categoryName = cells[2].innerText.toLowerCase(); // Ambil nama kategori dari kolom yang ditampilkan
-            const name = cells[0].innerText.toLowerCase(); // Ambil nama kue dari kolom pertama
+            const categoryId = cells[2].innerText; // Ambil category_id dari kolom ketiga
+            const name = cells[1].innerText.toLowerCase(); // Ambil nama kue dari kolom kedua
 
             // Tampilkan atau sembunyikan baris berdasarkan kategori ID dan nama kue yang dipilih
             const showRow = (filterCategoryId === "" || categoryId === filterCategoryId) &&
-                            (filterName === "" || name.indexOf(filterName) > -1);
+                (filterName === "" || name.indexOf(filterName) > -1);
 
             rows[i].style.display = showRow ? '' : 'none'; // Tampilkan jika cocok
         }
